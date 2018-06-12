@@ -6,8 +6,8 @@
 BME280 bme;
 
 // Variables for wifi server setup 
-const char* ssid     = "Prdelka";
-const char* password = "zderadovabrno"; 
+const char* ssid     = "WIFI_SSID";
+const char* password = "WIFI_PASSWORD"; 
 
 WiFiClient client;
 const int httpPort = 80;
@@ -34,7 +34,7 @@ long secsClock = 0;
 
 String windDir = "";
 float windSpeed = 0.0;
-String THINGS_API_KEY = "FG9WCE7AB34KQ6GT";
+
 
 // Pin assignment definitions
 #define WIND_SPD_PIN 14
@@ -274,24 +274,24 @@ int readLightSensor(){
   return adc1_get_raw( ADC1_CHANNEL_0 ); //Read analog
 }
 
-void sendDataToThingspeak(){
-  if (client.connect("api.thingspeak.com",80)) {
-    String message = THINGS_API_KEY;
-    message +="&field1=";
-    message += String(cas);
-    message +="&field2=";
-    message += String(analog);
-    message += "\r\n\r\n";
-    client.print("POST /update HTTP/1.1\n");
-    client.print("Host: api.thingspeak.com\n");
-    client.print("Connection: close\n");
-    client.print("X-THINGSPEAKAPIKEY: "+THINGS_API_KEY+"\n");
-    client.print("Content-Type: application/x-www-form-urlencoded\n");
-    client.print("Content-Length: ");
-    client.print(message.length());
-    client.print("\n\n");
-    client.print(message);
-  }
-  client.stop();
- }
+//void sendDataToThingspeak(){
+//  if (client.connect("api.thingspeak.com",80)) {
+//    String message = THINGS_API_KEY;
+//    message +="&field1=";
+//    message += String(cas);
+//    message +="&field2=";
+//    message += String(analog);
+//    message += "\r\n\r\n";
+//    client.print("POST /update HTTP/1.1\n");
+//    client.print("Host: api.thingspeak.com\n");
+//    client.print("Connection: close\n");
+//    client.print("X-THINGSPEAKAPIKEY: "+THINGS_API_KEY+"\n");
+//    client.print("Content-Type: application/x-www-form-urlencoded\n");
+//    client.print("Content-Length: ");
+//    client.print(message.length());
+//    client.print("\n\n");
+//    client.print(message);
+//  }
+//  client.stop();
+// }
 
